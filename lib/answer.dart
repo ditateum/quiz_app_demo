@@ -9,10 +9,14 @@ class Answer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width - (2 * 24),
+      height: 50,
       child: ElevatedButton(
         onPressed: selectHandler,
-        child: Text(answerText),
+        child: Text(
+          answerText,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

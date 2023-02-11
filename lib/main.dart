@@ -15,12 +15,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.dark(
+        useMaterial3: true,
       ),
       home: const Home(),
     );
   }
 }
 
-//
+final questions = [
+  {
+    'questionText':
+        'Method pada stateFul widget yang digunakan untuk mentrigger method build dijalankan ulang?',
+    'answers': ['setState', 'initState', 'dispose', 'logging'],
+    'image': 'assets/example1.png'
+  },
+  {
+    'questionText': 'Method pada stateFul widget yang hanya dijalankan sekali?',
+    'answers': ['dispose', 'logging', 'setState', 'initState'],
+    'image': 'assets/example2.png'
+  },
+  {
+    'questionText':
+        'Method pada stateFul widget yang untuk menghancurkan object saat aplikasi tidak digunakan?',
+    'answers': ['setState', 'logging', 'initState', 'dispose'],
+    'image': 'assets/example3.png'
+  }
+];

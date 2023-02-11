@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/question.dart';
 
 import 'answer.dart';
+import 'main.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -14,25 +15,7 @@ class Home extends StatefulWidget {
 
 //TODO TANTANGAN IV : BUAT WIDGET SENDIRI => DONE
 class _HomeState extends State<Home> {
-  //TODO TANTANGAN I : SESUAIKAN UI PUNYA KAMU DAN DATANYA
-  final questions = [
-    {
-      'questionText':
-          'Method pada stateFul widget yang digunakan untuk mentrigger method build dijalankan ulang?',
-      'answers': ['setState', 'initState', 'dispose', 'logging'],
-    },
-    {
-      'questionText':
-          'Method pada stateFul widget yang hanya dijalankan sekali?',
-      'answers': ['dispose', 'logging', 'setState', 'initState'],
-    },
-    {
-      'questionText':
-          'Method pada stateFul widget yang untuk menghancurkan object saat aplikasi tidak digunakan?',
-      'answers': ['setState', 'logging', 'initState', 'dispose'],
-    }
-  ];
-
+  //TODO TANTANGAN I : SESUAIKAN UI PUNYA KAMU DAN DATANYA => DONE
   var questionIndex = 0;
 
   void _answerQuestion() {
@@ -51,13 +34,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff16213E),
         title: const Text('Quiz App'),
       ),
       body: Column(
         children: [
-          Question(questions[questionIndex]['questionText'] as String),
+          SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Question(questions[questionIndex]['questionText'] as String),
+          ),
+          SizedBox(height: 30),
+          Image.asset(questions[questionIndex]['image'] as String, width: 200),
+          SizedBox(height: 30),
           ...(questions[questionIndex]['answers'] as List).map((answer) {
-            return Answer(_answerQuestion, answer);
+            return Container(
+                margin: EdgeInsets.only(bottom: 16),
+                child: Answer(_answerQuestion, answer));
           }).toList(),
         ],
       ),
