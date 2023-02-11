@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question.dart';
 
@@ -18,16 +20,42 @@ class _HomeState extends State<Home> {
   //TODO TANTANGAN I : SESUAIKAN UI PUNYA KAMU DAN DATANYA => DONE
   var questionIndex = 0;
 
-  void _answerQuestion() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('JAWABAN SALAH')),
+  _showMessage(String message) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Attention'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  questionIndex = 0;
+                });
+              },
+              child: Text('Back to Quiz'))
+        ],
+        content: Text(
+          message,
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
     );
-    //TODO TANTANGAN || : KALAU SOAL HABIS
+  }
 
+  void _answerQuestion() {
+    //TODO TANTANGAN || : KALAU SOAL HABIS => DONE
+
+    if (questionIndex >= questions.length - 1) {
+      _showMessage("Soal Habis");
+    } else {
+      setState(() {
+        questionIndex = questionIndex + 1;
+      });
+    }
     //TODO TANTANGAN III : KALAU SOAL BENAR / SALAH
-    setState(() {
-      questionIndex = questionIndex + 1;
-    });
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   const SnackBar(content: Text('JAWABAN SALAH')),
+    // );
   }
 
   @override
@@ -42,10 +70,11 @@ class _HomeState extends State<Home> {
           SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Question(questions[questionIndex]['questionText'] as String),
+            child:
+                Question(questions[questionIndex]['questionText'].toString()),
           ),
           SizedBox(height: 30),
-          Image.asset(questions[questionIndex]['image'] as String, width: 200),
+          Image.asset(questions[questionIndex]['image'].toString(), width: 200),
           SizedBox(height: 30),
           ...(questions[questionIndex]['answers'] as List).map((answer) {
             return Container(
