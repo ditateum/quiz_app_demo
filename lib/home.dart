@@ -1,3 +1,6 @@
+// ignore_for_file: unrelated_type_equality_checks
+
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -51,11 +54,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _answerQuestion() {
-    var listAnswers = questions[questionIndex]['answers'] as List<String>;
-    var indexAnswer = questions[questionIndex]['answer_index'] as int;
-    var valueAnswer = listAnswers[indexAnswer];
-
+  _answerQuestion(bool userAnswer) {
+    //! Ambil list data
+    var listAnswers = questions[questionIndex]['answers'] as List;
+    //! Ambil Data benar atau salah
+    var valueAnswer = listAnswers.map((value) => value['isCorrect']).toList();
     //TODO TANTANGAN || : KALAU SOAL HABIS => DONE
 
     if (questionIndex >= questions.length - 1) {
@@ -69,12 +72,12 @@ class _HomeState extends State<Home> {
       });
     }
     //TODO TANTANGAN III : KALAU SOAL BENAR / SALAH
-    for (var data in listAnswers) {
-      if (valueAnswer[questionIndex] == data) {
-        _showMessage("BENAR");
+    for (bool keyAnswer in valueAnswer) {
+      if (keyAnswer = userAnswer) {
+        _showMessage('BENAR');
         break;
       } else {
-        _showMessage("SALAH");
+        _showMessage('SALAH');
         break;
       }
     }
@@ -99,9 +102,12 @@ class _HomeState extends State<Home> {
           Image.asset(questions[questionIndex]['image'].toString(), width: 200),
           SizedBox(height: 30),
           ...(questions[questionIndex]['answers'] as List).map((answer) {
-            return Container(
-                margin: EdgeInsets.only(bottom: 16),
-                child: Answer(_answerQuestion, answer));
+            return Center(
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 16),
+                  child: Answer(() => _answerQuestion(answer['isCorrect']),
+                      answer['text'].toString())),
+            );
           }).toList(),
         ],
       ),

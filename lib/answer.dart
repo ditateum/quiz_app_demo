@@ -4,7 +4,7 @@ import 'package:quiz_app/main.dart';
 class Answer extends StatelessWidget {
   const Answer(this.selectHandler, this.answerText, {super.key});
 
-  final VoidCallback selectHandler;
+  final GestureTapCallback selectHandler;
   final String answerText;
 
   @override
