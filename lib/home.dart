@@ -1,4 +1,4 @@
-import 'dart:ffi';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question.dart';
@@ -19,20 +19,29 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //TODO TANTANGAN I : SESUAIKAN UI PUNYA KAMU DAN DATANYA => DONE
   var questionIndex = 0;
+  var userindexAnswer = -1;
 
   _showMessage(String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  _alertMessage(String message) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Attention'),
         actions: [
           TextButton(
-              onPressed: () {
-                setState(() {
-                  questionIndex = 0;
-                });
-              },
-              child: Text('Back to Quiz'))
+            child: Text('Quiz Done'),
+            onPressed: () {
+              Navigator.pop(context, "Ok");
+              setState(() {
+                questionIndex = 0;
+              });
+            },
+          )
         ],
         content: Text(
           message,
@@ -42,20 +51,33 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _answerQuestion() {
+  _answerQuestion() {
+    var listAnswers = questions[questionIndex]['answers'] as List<String>;
+    var indexAnswer = questions[questionIndex]['answer_index'] as int;
+    var valueAnswer = listAnswers[indexAnswer];
+
     //TODO TANTANGAN || : KALAU SOAL HABIS => DONE
 
     if (questionIndex >= questions.length - 1) {
-      _showMessage("Soal Habis");
+      _alertMessage("Soal Habis");
     } else {
       setState(() {
+        // //!Milih Jawaban
+        // userindexAnswer = userindexAnswer + 1;
+        //! Soal Selanjutnya
         questionIndex = questionIndex + 1;
       });
     }
     //TODO TANTANGAN III : KALAU SOAL BENAR / SALAH
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   const SnackBar(content: Text('JAWABAN SALAH')),
-    // );
+    for (var data in listAnswers) {
+      if (valueAnswer[questionIndex] == data) {
+        _showMessage("BENAR");
+        break;
+      } else {
+        _showMessage("SALAH");
+        break;
+      }
+    }
   }
 
   @override

@@ -27,18 +27,33 @@ final questions = [
   {
     'questionText':
         'Method pada stateFul widget yang digunakan untuk mentrigger method build dijalankan ulang?',
-    'answers': ['setState', 'initState', 'dispose', 'logging'],
+    'answers': [
+      {'text': 'setState', 'isCorrect': true},
+      {'text': 'initState', 'isCorrect': false},
+      {'text': 'Dispose', 'isCorrect': false},
+      {'text': 'logging', 'isCorrect': false},
+    ],
     'image': 'assets/example1.png'
   },
   {
     'questionText': 'Method pada stateFul widget yang hanya dijalankan sekali?',
-    'answers': ['dispose', 'logging', 'setState', 'initState'],
+    'answers': [
+      {'text': 'setState', 'isCorrect': false},
+      {'text': 'initState', 'isCorrect': false},
+      {'text': 'Dispose', 'isCorrect': true},
+      {'text': 'logging', 'isCorrect': false},
+    ],
     'image': 'assets/example2.png'
   },
   {
     'questionText':
         'Method pada stateFul widget yang untuk menghancurkan object saat aplikasi tidak digunakan?',
-    'answers': ['setState', 'logging', 'initState', 'dispose'],
+    'answers': [
+      {'text': 'setState', 'isCorrect': false},
+      {'text': 'initState', 'isCorrect': false},
+      {'text': 'Dispose', 'isCorrect': false},
+      {'text': 'logging', 'isCorrect': true},
+    ],
     'image': 'assets/example3.png'
   }
 ];

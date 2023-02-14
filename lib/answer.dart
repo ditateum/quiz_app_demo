@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/main.dart';
 
 class Answer extends StatelessWidget {
   const Answer(this.selectHandler, this.answerText, {super.key});
