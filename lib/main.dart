@@ -38,10 +38,10 @@ final questions = [
   {
     'questionText': 'Method pada stateFul widget yang hanya dijalankan sekali?',
     'answers': [
+      {'text': 'initState', 'isCorrect': true},
       {'text': 'setState', 'isCorrect': false},
-      {'text': 'initState', 'isCorrect': false},
-      {'text': 'Dispose', 'isCorrect': true},
-      {'text': 'logging', 'isCorrect': false},
+      {'text': 'Logging', 'isCorrect': false},
+      {'text': 'Dispose', 'isCorrect': false},
     ],
     'image': 'assets/example2.png'
   },
@@ -49,10 +49,10 @@ final questions = [
     'questionText':
         'Method pada stateFul widget yang untuk menghancurkan object saat aplikasi tidak digunakan?',
     'answers': [
+      {'text': 'logging', 'isCorrect': false},
       {'text': 'setState', 'isCorrect': false},
-      {'text': 'initState', 'isCorrect': false},
-      {'text': 'Dispose', 'isCorrect': false},
-      {'text': 'logging', 'isCorrect': true},
+      {'text': 'Dispose', 'isCorrect': true},
+      {'text': 'logging', 'isCorrect': false},
     ],
     'image': 'assets/example3.png'
   }
