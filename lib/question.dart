@@ -15,6 +15,8 @@ class Question extends StatefulWidget {
 class _QuestionState extends State<Question> {
   var questionIndex = 0;
   var changeWidget = false;
+  bool clicked = false;
+  int selectedIndex = -1;
 
   _showMessage(String message) {
     return ScaffoldMessenger.of(context).showSnackBar(
@@ -56,9 +58,7 @@ class _QuestionState extends State<Question> {
     var valueAnswer = listAnswers.map((value) => value['isCorrect']).toList();
     //! Ambil data description
     //TODO: Ketika menjawab soal terjadi perubahan widget
-    setState(() {
-      changeWidget = !changeWidget;
-    });
+
     //TODO TANTANGAN III : KALAU SOAL BENAR / SALAH
     for (bool keyAnswer in valueAnswer) {
       if (keyAnswer = userAnswer) {
@@ -69,6 +69,12 @@ class _QuestionState extends State<Question> {
         break;
       }
     }
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        selectedIndex = listAnswers.hashCode;
+        changeWidget = !changeWidget;
+      });
+    });
   }
 
   //TODO TANTANGAN || : KALAU SOAL HABIS => DONE
@@ -109,9 +115,18 @@ class _QuestionState extends State<Question> {
                       .map((answer) => Center(
                             child: Container(
                               margin: EdgeInsets.only(bottom: 16),
-                              child: Answer(
-                                  () => _answerQuestion(answer['isCorrect']),
-                                  answer['text']),
+                              child: Answer(() {
+                                _answerQuestion(answer['isCorrect']);
+                                setState(() {
+                                  selectedIndex = listAnswers.hashCode;
+                                });
+                              },
+                                  answer['text'],
+                                  selectedIndex == listAnswers.hashCode
+                                      ? (answer['isCorrect']
+                                          ? Colors.green
+                                          : Colors.red)
+                                      : Colors.black87),
                             ),
                           ))
                       .toList(),
