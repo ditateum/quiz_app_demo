@@ -15,7 +15,6 @@ class Question extends StatefulWidget {
 class _QuestionState extends State<Question> {
   var questionIndex = 0;
   var changeWidget = false;
-  bool clicked = false;
   int selectedIndex = -1;
 
   _showMessage(String message) {
@@ -118,11 +117,11 @@ class _QuestionState extends State<Question> {
                               child: Answer(() {
                                 _answerQuestion(answer['isCorrect']);
                                 setState(() {
-                                  selectedIndex = listAnswers.hashCode;
+                                  selectedIndex = answer['id'];
                                 });
                               },
                                   answer['text'],
-                                  selectedIndex == listAnswers.hashCode
+                                  selectedIndex == answer['id']
                                       ? (answer['isCorrect']
                                           ? Colors.green
                                           : Colors.red)
